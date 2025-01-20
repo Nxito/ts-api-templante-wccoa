@@ -1,0 +1,14 @@
+import express from 'express';
+const router = express.Router();
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
+import path from 'path';
+import { parse } from 'yaml';
+import { projectPath } from '../../helpers/projectPath.js';
+const realProjectPath = projectPath();
+console.info("realProjectPath", realProjectPath);
+const swaggerYAML = fs.readFileSync(path.join(realProjectPath, "doc", "api-doc.yaml"), "utf-8");
+const swaggerDocument = parse(swaggerYAML);
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocument));
+export default router;

@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API de Usuarios",
+      "version": "1.0.0",
+      "description": "API para gestionar usuarios"
+    },
+    "servers": [
+      {
+        "url": "http://192.168.44.135:3000"
+      }
+    ],
+    "paths": {
+      "/api/users": {
+        "get": {
+          "summary": "Obtiene la lista de usuarios",
+          "responses": {
+            "200": {
+              "description": "Lista de usuarios."
+            }
+          }
+        },
+        "post": {
+          "summary": "Crea un nuevo usuario",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Pedro"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Usuario creado."
+            }
+          }
+        }
+      }
+    }
+  }
