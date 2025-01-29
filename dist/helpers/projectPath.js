@@ -18,7 +18,7 @@ export function projectPath() {
         isWinccoa = true;
     }
     const projectPath = isWinccoa ? aux.split("\\").splice(1, 2).join("/") : wccoaProjectPath;
-    console.log('WINCCOA - ruta del proyecto:', wccoaProjectPath);
-    console.log('JS - ruta del proyecto:', projectPath);
+    console.log('[WINCCOA] - ruta de instalación:', wccoaProjectPath);
+    console.log('[JS] - ruta del proyecto:', projectPath);
     return projectPath;
 }

@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { getCerts } from '../../helpers/getCerts.js';
+import { setManagerUserByName } from './winccoaAuth.js';
+import winccoa from "../../helpers/globalWinccoaManager.js";
 // Middleware para autenticar el token Bearer
 function authBearerToken(req, res, next) {
     const authHeader = req.headers['authorization'];
@@ -10,7 +12,11 @@ function authBearerToken(req, res, next) {
         if (err)
             return res.sendStatus(403); // Invalid token
         req.user = user;
-        next();
+        const username = user.username;
+        setManagerUserByName(username).then(() => {
+            winccoa.logInfo("JS Manager User Changed: ", username);
+            next();
+        });
     });
 }
 ;

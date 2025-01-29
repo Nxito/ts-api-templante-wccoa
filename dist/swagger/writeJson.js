@@ -1,7 +1,7 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 import { projectPath } from '../helpers/projectPath.js';
 import { writeFileSync } from 'fs';
-import { swaggerDefinition } from '../config/swagger/config.js';
+import { swaggerDefinition } from '../config/swagger.js';
 const realProjectPath = projectPath();
 //Sample from https://editor.swagger.io/
 const options = {

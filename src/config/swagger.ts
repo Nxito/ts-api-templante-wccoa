@@ -16,7 +16,7 @@ export const swaggerDefinition = {
       "description": "Api de pruebas - version 1"
     },
     // {
-    //   "url": "/apiv2",
+    //   "url": "/v2",
     //   "description": "Api de pruebas - version 2"
     // }
   ],
@@ -68,6 +68,15 @@ export const swaggerDefinition = {
           }
         }
       },
+      "Counter": {
+        "type": "object",
+        "properties": {
+          "counter": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
       "Error": {
         "type": "object",
         "properties": {
@@ -96,8 +105,12 @@ export const swaggerDefinition = {
       "description": "Operaciones relacionadas con la gestión de productos"
     },
     {
-      "name": "Auth",
-      "description": "Operaciones relacionadas con la autenticacion"
+      "name": "Contadores",
+      "description": "Prueba de conexión con winccoa"
+    },
+    {
+      "name": "Common",
+      "description": "Otras rutas comunes entre todas las versiones"
     }
   ]
 

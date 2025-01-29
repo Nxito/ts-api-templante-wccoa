@@ -43,6 +43,12 @@ components:
         price:
           type: number
           format: float
+    Counter:
+      type: object
+      properties:
+        counter:
+          type: number
+          format: float
     Error:
       type: object
       properties:
@@ -57,8 +63,10 @@ tags:
     description: Operaciones relacionadas con la gestión de usuarios
   - name: Productos
     description: Operaciones relacionadas con la gestión de productos
-  - name: Auth
-    description: Operaciones relacionadas con la autenticacion
+  - name: Contadores
+    description: Prueba de conexión con winccoa
+  - name: Common
+    description: Otras rutas comunes entre todas las versiones
 paths:
   /products:
     get:
@@ -184,134 +192,6 @@ paths:
                 $ref: "#/components/schemas/Product"
         "404":
           description: Producto no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /users:
-    get:
-      summary: Obtener todos los usuarios
-      tags:
-        - Usuarios
-      security:
-        - BearerAuth: []
-      responses:
-        "200":
-          description: Lista de usuarios
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/User"
-        "401":
-          description: No autorizado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    post:
-      summary: Crear un nuevo usuario
-      tags:
-        - Usuarios
-      requestBody:
-        description: Datos del nuevo usuario
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-      responses:
-        "201":
-          description: Usuario creado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        "400":
-          description: Datos inválidos, el usuario no es una fruta
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    put:
-      summary: Actualizar  usuarios
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      requestBody:
-        description: Datos actualizados del usuario
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-      responses:
-        "200":
-          description: Usuario actualizado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        "400":
-          description: Algun usuario no tiene datos válidos
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    delete:
-      summary: Eliminar un usuario por ID
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        "204":
-          description: Usuario eliminado
-        "404":
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /users/{id}:
-    get:
-      summary: Obtener un usuario por ID
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      responses:
-        "200":
-          description: Usuario encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        "404":
-          description: Usuario no encontrado
           content:
             application/json:
               schema:
@@ -444,6 +324,134 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /users:
+    get:
+      summary: Obtener todos los usuarios
+      tags:
+        - Usuarios
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "401":
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Crear un nuevo usuario
+      tags:
+        - Usuarios
+      requestBody:
+        description: Datos del nuevo usuario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: Usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Datos inválidos, el usuario no es una fruta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Actualizar  usuarios
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: number
+      requestBody:
+        description: Datos actualizados del usuario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Algun usuario no tiene datos válidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Eliminar un usuario por ID
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Usuario eliminado
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{id}:
+    get:
+      summary: Obtener un usuario por ID
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: number
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /products/:id:
     delete:
       summary: Eliminar un producto por ID
@@ -498,3 +506,63 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /auth/login:
+    post:
+      summary: Obtener el token de autenticación
+      servers:
+        - url: /
+          description: Servidor base sin versión
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      tags:
+        - Common
+      responses:
+        "200":
+          description: Token de acceso para las demás rutas
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Token expirado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /health:
+    get:
+      summary: Verificar el estado de salud del servidor
+      tags:
+        - Common
+      servers:
+        - url: /
+          description: Servidor base sin versión
+      responses:
+        "200":
+          description: El servicio está funcionando correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  message:
+                    type: string
+                    example: El servicio está funcionando correctamente

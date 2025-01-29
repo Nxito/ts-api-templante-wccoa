@@ -1,7 +1,6 @@
-import { WinccoaManager } from 'winccoa-manager';
 import express, { Request, Response } from 'express';
-const winccoa = new WinccoaManager();
- 
+import winccoa from "../../../helpers/globalWinccoaManager.js"
+
 const router = express.Router();
 /**
  *  @openapi
@@ -28,17 +27,24 @@ const router = express.Router();
  *             schema:
  *               $ref: "#/components/schemas/Error"
 */
-router.get('/counters', (req: Request, res: Response) => {
+router.get('/counters', async (req: Request, res: Response) => {
     let units;
     try {
-        units = 1///winccoa.dpGetUnit('System1:nodetest.count');
+        //winccoa.setUserId(1);
+        let options = winccoa.getOptions()
+        for (const [key, value] of Object.entries(options)) {
+            console.info(`Name: ${key} - Value: ${value}`);
+        }
+
+        let systemName = winccoa.getSystemName()
+        units = await winccoa.dpGet(systemName +  'nodeclass.count');
         console.info('DP Count: ' + units);
         res.status(200).json([{ counter: units }]);
 
-      } catch (err) {
-        res.status(400).send("some happens: "+err);
+    } catch (err) {
+        res.status(401).send("some happens: " + err);
 
-      }
+    }
 });
 
 /**
