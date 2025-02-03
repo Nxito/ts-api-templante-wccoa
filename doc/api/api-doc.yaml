@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: API de Ejemplo
-  description: API para gestionar usuarios y productos
+  description: API De pruebas
   version: 1.0.0
   contact:
     name: Soporte de API
@@ -19,30 +19,22 @@ components:
     User:
       type: object
       properties:
-        id:
+        OSID:
           type: string
           format: number
-        name:
+        Name:
           type: string
-        email:
+        PVSSID:
           type: string
-          format: email
-        password:
+          format: number
+        PVSSGROUPID:
+          type: array
+        Disabled:
+          type: boolean
+        Comment:
           type: string
-          format: password
-    Product:
-      type: object
-      properties:
-        id:
+        FullName:
           type: string
-          format: uuid
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          type: number
-          format: float
     Counter:
       type: object
       properties:
@@ -61,141 +53,11 @@ security:
 tags:
   - name: Usuarios
     description: Operaciones relacionadas con la gestión de usuarios
-  - name: Productos
-    description: Operaciones relacionadas con la gestión de productos
   - name: Contadores
     description: Prueba de conexión con winccoa
   - name: Common
     description: Otras rutas comunes entre todas las versiones
 paths:
-  /products:
-    get:
-      summary: Obtener todos los productos
-      tags:
-        - Productos
-      security:
-        - BearerAuth: []
-      responses:
-        "200":
-          description: Lista de productos
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Product"
-        "401":
-          description: No autorizado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    post:
-      summary: Crear un nuevo producto
-      tags:
-        - Productos
-      requestBody:
-        description: Datos del nuevo producto
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Product"
-      responses:
-        "201":
-          description: Producto creado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Product"
-        "400":
-          description: Datos inválidos, el producto no es una fruta
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    put:
-      summary: Actualizar productos
-      tags:
-        - Productos
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      requestBody:
-        description: Datos actualizados del producto
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Product"
-      responses:
-        "200":
-          description: Producto actualizado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Product"
-        "400":
-          description: Algun producto no tiene datos válidos
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: Producto no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    delete:
-      summary: Eliminar un producto por ID
-      tags:
-        - Productos
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      responses:
-        "204":
-          description: Producto eliminado
-        "404":
-          description: Producto no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /products/{id}:
-    get:
-      summary: Obtener un producto por ID
-      tags:
-        - Productos
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      responses:
-        "200":
-          description: Producto encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Product"
-        "404":
-          description: Producto no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /counters:
     get:
       summary: Obtener todos los contadores
@@ -218,108 +80,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-    post:
-      summary: Crear un nuevo contador
-      tags:
-        - Contadores
-      requestBody:
-        description: Datos del nuevo contador
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Counter"
-      responses:
-        "201":
-          description: Contador creado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Counter"
-        "400":
-          description: Datos inválidos
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    put:
-      summary: Actualizar un contador por ID
-      tags:
-        - Contadores
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        description: Datos actualizados del contador
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Counter"
-      responses:
-        "200":
-          description: Contador actualizado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Counter"
-        "400":
-          description: Datos inválidos
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: Contador no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    delete:
-      summary: Eliminar un contador por ID
-      tags:
-        - Contadores
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        "204":
-          description: Contador eliminado
-        "404":
-          description: Contador no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /counters/{id}:
-    get:
-      summary: Obtener un contador por ID
-      tags:
-        - Contadores
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      responses:
-        "200":
-          description: Contador encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Counter"
-        "404":
-          description: Contador no encontrado
+        "500":
+          description: Internal Server Problem
           content:
             application/json:
               schema:
@@ -342,166 +104,6 @@ paths:
                   $ref: "#/components/schemas/User"
         "401":
           description: No autorizado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    post:
-      summary: Crear un nuevo usuario
-      tags:
-        - Usuarios
-      requestBody:
-        description: Datos del nuevo usuario
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-      responses:
-        "201":
-          description: Usuario creado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        "400":
-          description: Datos inválidos, el usuario no es una fruta
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    put:
-      summary: Actualizar  usuarios
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      requestBody:
-        description: Datos actualizados del usuario
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-      responses:
-        "200":
-          description: Usuario actualizado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        "400":
-          description: Algun usuario no tiene datos válidos
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    delete:
-      summary: Eliminar un usuario por ID
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        "204":
-          description: Usuario eliminado
-        "404":
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /users/{id}:
-    get:
-      summary: Obtener un usuario por ID
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      responses:
-        "200":
-          description: Usuario encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        "404":
-          description: Usuario no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /products/:id:
-    delete:
-      summary: Eliminar un producto por ID
-      tags:
-        - Productos
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      responses:
-        "204":
-          description: Producto eliminado
-        "400":
-          description: El producto no existe
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: Producto no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /users/:id:
-    delete:
-      summary: Eliminar un usuario por ID
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: number
-      responses:
-        "204":
-          description: Usuario eliminado
-        "400":
-          description: El usuario no existe
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: Usuario no encontrado
           content:
             application/json:
               schema:

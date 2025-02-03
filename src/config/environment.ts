@@ -1,6 +1,6 @@
 // config.js
 import {config} from "dotenv";
-import { projectPath } from "../helpers/projectPath.js";
+import { projectPath } from "../utils/projectPath.js";
 
 const result = config({ path: projectPath()+'/.env' });
 

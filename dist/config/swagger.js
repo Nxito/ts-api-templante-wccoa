@@ -2,7 +2,7 @@ export const swaggerDefinition = {
     "openapi": "3.0.0",
     "info": {
         "title": "API de Ejemplo",
-        "description": "API para gestionar usuarios y productos",
+        "description": "API De pruebas",
         "version": "1.0.0",
         "contact": {
             "name": "Soporte de API",
@@ -31,39 +31,28 @@ export const swaggerDefinition = {
             "User": {
                 "type": "object",
                 "properties": {
-                    "id": {
+                    "OSID": {
                         "type": "string",
                         "format": "number"
                     },
-                    "name": {
+                    "Name": {
                         "type": "string"
                     },
-                    "email": {
+                    "PVSSID": {
                         "type": "string",
-                        "format": "email"
+                        "format": "number"
                     },
-                    "password": {
-                        "type": "string",
-                        "format": "password"
-                    }
-                }
-            },
-            "Product": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "format": "uuid"
+                    "PVSSGROUPID": {
+                        "type": "array"
                     },
-                    "name": {
+                    "Disabled": {
+                        "type": "boolean"
+                    },
+                    "Comment": {
                         "type": "string"
                     },
-                    "description": {
+                    "FullName": {
                         "type": "string"
-                    },
-                    "price": {
-                        "type": "number",
-                        "format": "float"
                     }
                 }
             },
@@ -98,10 +87,6 @@ export const swaggerDefinition = {
         {
             "name": "Usuarios",
             "description": "Operaciones relacionadas con la gestión de usuarios"
-        },
-        {
-            "name": "Productos",
-            "description": "Operaciones relacionadas con la gestión de productos"
         },
         {
             "name": "Contadores",

@@ -3,11 +3,11 @@ import express from 'express';
 const app = express();
 import {port,keyFile,certFile} from "./config/environment.js"
 import { WinccoaSecurityEventId } from 'winccoa-manager';
-import winccoa from "./helpers/globalWinccoaManager.js"
+import winccoa from "./utils/globalWinccoaManager.js"
 import * as https from 'https';
-import { getCerts } from './helpers/getCerts.js';
+import { getCerts } from './utils/getCerts.js';
 import bodyParser from 'body-parser';
-import routes from "./router/routes.js";
+import routes from "./routes/routes.js";
 const credentials: https.ServerOptions = getCerts(keyFile,certFile);
  const httpsPORT: Number =  Number (process.argv[1] as string) || Number (port) ||  3443 ;
 

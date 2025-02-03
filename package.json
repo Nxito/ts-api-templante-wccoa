@@ -8,10 +8,11 @@
     "@types/body-parser": "^1.4.7",
     "@types/eslint__js": "^8.42.3",
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^20.14.2",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
-    "@types/winccoa-manager": "file:../../../../../../../Siemens/Automation/WinCC_OA/3.20/javascript/@types/winccoa-manager",
+    "@types/winccoa-manager": "file:/opt/WinCC_OA/3.20/javascript/@types/winccoa-manager",
     "eslint": "^8.57.0",
     "prettier": "^3.3.2",
     "typescript": "^5.4.5",
@@ -22,7 +23,7 @@
     "test": "npx playwright test",
     "clean": "tsc --build --clean",
     "build": "tsc ",
-    "build-and-update-api-doc": "tsc  & node ./dist/swagger/writeYaml.js",
+    "build-and-update-api-doc": "tsc  & node ./dist/utils/swagger/writeYaml.js",
     "format": "prettier . --write",
     "lint": "eslint ."
   },
@@ -34,7 +35,7 @@
     "jsonwebtoken": "^9.0.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "winccoa-manager": "file:../../../../../../../Siemens/Automation/WinCC_OA/3.20/javascript/winccoa-manager",
+    "winccoa-manager": "file:/opt/WinCC_OA/3.20/javascript/winccoa-manager",
     "yaml": "^2.6.0"
   }
 }
